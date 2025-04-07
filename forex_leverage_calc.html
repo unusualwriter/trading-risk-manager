@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="script.js"></script>
+</head>
+<body>
+    <h1>Risk Management</h1>
+
+
+    <div style="display: flex;">
+
+        <div style="flex: 1; padding: 10px;">
+            
+            <form>
+                
+                <table style="border-collapse: collapse; width: 100%;">
+                    
+                    <tr>
+                        <td colspan="4"><h2>Account</h2></td>
+                    </tr>
+                    <tr>
+                        <td>Balance:</td>
+                        <td><input type="number" id="balance" step="0.01"></td>
+                        <td>Leverage (1:x)</td>
+                        <td><input type="number" id="leverage" step="1"></td>
+                    </tr>
+                    <tr>
+                        <td>Margin Call (%):</td>
+                        <td><input type="number" id="margincall" step="0.01"></td>
+                        <td>Stopout (%)</td>
+                        <td><input type="number" id="stopout" step="0.01"></td>
+                    </tr>
+
+                    <tr>
+                        <td colspan="4"><h2>Instrument</h2></td>
+                    </tr>
+                    <tr>
+                        <td>Symbol:</td>
+                        <td><input type="text" id="symbol"></td>
+                        <td>Contract Size:</td>
+                        <td><input type="number" id="contractsize" step="1"></td>
+                    </tr>
+                    <tr>
+                        <td>Buy Margin(%) Initial:</td>
+                        <td><input type="number" id="buy_margin_init" step="0.01"></td>
+                        <td>Buy Margin(%) Maint:</td>
+                        <td><input type="number" id="buy_margin_maint" step="0.01"></td>
+                    </tr>
+                    <tr>
+                        <td>Sell Margin(%) Initial:</td>
+                        <td><input type="number" id="sell_margin_init" step="0.01"></td>
+                        <td>Sell Margin(%) Maint:</td>
+                        <td><input type="number" id="sell_margin_maint" step="0.01"></td>
+                    </tr>
+
+                    <tr>
+                        <td colspan="4"><h2>Trade</h2></td>
+                    </tr>
+                    <tr>
+                        <td>Entry Price:</td>
+                        <td><input type="number" id="entry" step="0.01"></td>
+                        <td>Current Price:</td>
+                        <td><input type="number" id="current" step="0.01"></td>
+                    </tr>
+                    <tr>
+                        <td>Lots</td>
+                        <td><input type="number" id="lots" step="0.01"></td>
+                        <td>Position:</td>
+                        <td>
+                            <input type="radio" id="long" name="position" value="long" checked>
+                            <label for="long">Long</label>
+                            <input type="radio" id="short" name="position" value="short">
+                            <label for="short">Short</label>
+                        </td>
+                    </tr>
+                    
+                    <tr><td></td><td></td><td></td><td><input type="button" value="GO"></td></tr>                
+                </table>
+
+            </form>
+
+        </div>
+
+
+        <div style="flex: 1; padding-left: 100px;">
+            <h2>Report</h2>
+
+                
+
+            <table style="border-collapse: collapse; width: 70%;" class="report_table">
+                <tr><td class="bold">--Trade <br>(Posn Independent)--</td></tr>
+                <tr>
+                    <td>Units Traded <span class="grey">(Not Lots)</span></td><td id="r_units_traded">x</td>                    
+                </tr>
+                <tr>
+                    <td>Value Traded <span class="grey">(At Entry Price)</span></td><td id="r_value_traded">x</td>                    
+                </tr>
+                <tr>
+                    <td>Current Trade Value <span class="grey">(At Current Price)</span></td><td id="r_current_value">x</td>                 
+                </tr>
+                <tr>
+                    <td>Trade Value Change <span class="grey">(Absolute)</span></td><td id="r_delta" class="colored">x</td>                    
+                </tr>
+
+                <tr><td class="bold">--General--</td></tr>
+
+                <tr>
+                    <td>Unit Price Change <span class="grey">(Absolute / Not Contract)</span></td><td id="r_delta_per_unit">x</td>                    
+                </tr>
+                
+
+                <tr><td class="bold">--Account Status--</td></tr>
+                <tr>
+                    <td>Balance</td><td id="r_balance">x</td>                  
+                </tr>
+                <tr>
+                    <td>Equity</td><td id="r_equity">x</td>                  
+                </tr>
+                <tr>
+                    <td>Margin</td><td id="r_margin">x</td>                  
+                </tr>
+                <tr>
+                    <td>Free Margin</td><td id="r_free_margin">x</td>                  
+                </tr>
+                <tr>
+                    <td>Margin Level</td><td id="r_margin_level">x</td>                  
+                </tr>
+
+
+                <tr><td class="bold">--Levels--</td></tr>
+                <tr>
+                    <td>100% Free Margin</td><td id="r_freemargin_100_level">x</td>                  
+                </tr>
+                <tr>
+                    <td>50% Free Margin</td><td id="r_freemargin_50_level">x</td>                  
+                </tr>
+                <tr>
+                    <td>0% Free Margin</td><td id="r_freemargin_0_level">x</td>                  
+                </tr>
+                <tr>
+                    <td><input type="number" style="width: 100px;" id="freemargin_custom_level" value="500">% Free Margin</td>
+                    <td id="r_freemargin_x_level">x</td>                  
+                </tr>
+                <tr>
+                    <td>Liquidation Level</td><td id="r_liquidation_level">x</td>                  
+                </tr>
+                <tr>
+                    <td>Double Level <span class="grey">When Current Trade Value doubles</span></td><td id="r_double_level">x</td>                  
+                </tr>
+            </table>
+            
+            <hr>
+<!--  
+            <div>
+                <h2>Concepts</h2>
+                
+                <span class="bold">Units Traded</span><br>
+                Total number of units (not contracts) which were traded by the order. These are effected by contract size and lot size.<br>
+                <span class="bold">Units Traded = Contract Size x Lot Size</span><br><br>
+
+                <span class="bold">Value Traded</span><br>
+                Total value traded by the order. It is effected by Entry Price and Units Traded<br>
+                <span class="bold">Value Traded = Entry Price x Units Traded</span><br><br>
+
+                <span class="bold">My Trade Change (Abs)</span><br>
+                Total value change for your order (Traded Value) from Entry Price to Current Price.
+                It is effected by Value Traded, Entry Price and Current Price
+                It is absolute value so increase in price will always show positive regardless of your order type<br>
+                <span class="bold">My Trade Change (Abs) = Entry Price x Units Traded</span><br><br>
+            </div>
+
+
+        </div>
+ -->       
+
+    </div>
+</body>
+</html>

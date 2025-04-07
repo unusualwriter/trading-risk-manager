@@ -1,0 +1,51 @@
+td {
+    border: none;
+}
+
+
+table, th, td {
+    /* border: 1px solid black; */
+    padding: 4px;
+}
+
+.report_table, .report_table th, .report_table td {
+    border: 1px solid #ddd;
+    padding: 5px;
+}
+
+.report_table td:first-child {
+    width: 60%;
+    word-wrap: break-word;
+}
+
+.report_table td:last-child {
+    width: 40%;
+    word-wrap: break-word;
+}
+
+
+body {
+    font-family: Trebuchet MS, sans-serif;
+}
+
+input {
+    font-size: 1.2em;
+}
+
+tr {
+    margin-bottom: 30px;
+    
+}
+
+.bold {
+    font-weight: bold;
+}
+
+.grey {
+    color: grey;
+    font-size: 70%;
+}
+
+.text-red { color: red; }
+.text-green { color: green; }
+.text-black { color: black; }
